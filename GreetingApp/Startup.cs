@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GreetingApp
 {
     public class Startup
-    {
+    {      
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -24,9 +24,11 @@ namespace GreetingApp
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.Run(async (context) =>
             {
-               await context.Response.WriteAsync("hello world");           
+               await context.Response.WriteAsync("");           
             });
         }
     }
