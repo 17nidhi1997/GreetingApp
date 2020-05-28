@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Login page to Greetings</title>
+    <style>
+        .loginmage {
+            height: 100%;
+            width: 100%;
+            background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg);
+            background-position: center;
+            background-size: cover;
+            position: absolute;
+        }
+        .form-box{
+            width: 380px;
+            height: 480px;
+            position: relative;
+            margin: 6% auto;
+            background: #000000;
+            padding: 5px;
+            overflow: hidden;
+        }
+        .Button-box{
+            width: 220px;
+            margin: 35px auto;
+            position: relative;
+            box-shadow: 0 0 10px 9px #0094ff;
+            border-radius: 30px;
+        }
+        .toggle-button{
+            padding: 10px 25px;
+            cursor: pointer;
+            background: transparent;
+            border: 0;
+            outline: none;
+            position: relative;
+        }
+        #btn{
+            top: 0;
+            left: 0;
+            position: absolute;
+            width: 110px;
+            height: 100%;
+            background: linear-gradient(to top,#4800ff,#0026ff);
+            border-radius: 30px;
+            transition: 0.5s;
+
+        }
+        .input-group{
+            top: 180px;
+            position: absolute;
+            width: 280px;
+            transition: .5s;
+        }
+        .input-field{
+            width: 100%;
+            padding: 10px 0;
+            margin: 5px 0;
+            border-left: 0;
+            border-right: 0;
+            border-top: 0;
+            border-bottom: 0;
+            border-bottom: 1px solid #0026ff;
+            outline: none;
+            background: transparent;
+        }
+        .submit-btn{
+            width: 85%;
+            padding: 10px 25px;
+            cursor: pointer;
+            display: block;
+            margin: auto;
+            background: linear-gradient(to top,#0026ff,#0094ff);
+            border: 0;
+            outline: none;
+            border-radius: 30px;
+        }
+        .chech-box{
+           margin: 30px 10px 30px 0;     
+        }
+        
+        span{
+            color: white;
+            font-size: 12px;
+            bottom: 68px;
+            position: absolute;
+            font-style: normal;
+         
+        }
+        #login{
+            left: 50px;
+        }
+        #Register {
+            left: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="loginmage">
+        <div class="form-box">
+            <div class="Button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-button" onclick="login()">LOGIN</button>
+                <button type="button" class="toggle-button" onclick="Register()">REGISTER</button>
+            </div>
+            <form id="login" class="input-group">
+                <input type="text" class="input-field" placeholder="User Id" required />
+                <input type="text" class="input-field" placeholder="Enter password" required />
+                <input type="checkbox" class="chech-box"/><span>Remember Password</span>                
+                <button type="submit" class="submit-btn">Log in</button>
+            </form>
+            <form id="Register" class="input-group">
+                <input type="text" class="input-field" placeholder="User Name" required />
+                <input type="email" class="input-field" placeholder="Email id" required />
+                <input type="text" class="input-field" placeholder="Enter Password" required />
+                <input type="text" class="input-field" placeholder="Comform Password" required />
+                <input type="checkbox" class="chech-box"/>
+                <span>Agree to the terms & condition</span>
+                <button type="submit" class="submit-btn"> Register</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("Register");
+        var z = document.getElementById("btn");
+        function Register() {
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "100px";
+        }
+        function login() {
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0";
+        }
+    </script>
+</body>
+</html>
