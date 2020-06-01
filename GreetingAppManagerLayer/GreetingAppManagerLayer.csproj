@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GreetingAppCommannLayer\GreetingAppCommannLayer.csproj" />
+    <ProjectReference Include="..\GreetingAppRepositoriesLayer\GreetingAppRepositoriesLayer.csproj" />
+  </ItemGroup>
+
 </Project>
