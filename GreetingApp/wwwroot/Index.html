@@ -2,6 +2,10 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <title>Login page to Greetings</title>
     <style>
         .loginmage {
@@ -12,7 +16,7 @@
             background-size: cover;
             position: absolute;
         }
-        .form-box{
+        .form-box {
             width: 380px;
             height: 480px;
             position: relative;
@@ -21,14 +25,14 @@
             padding: 5px;
             overflow: hidden;
         }
-        .Button-box{
+        .Button-box {
             width: 220px;
             margin: 35px auto;
             position: relative;
             box-shadow: 0 0 10px 9px #0094ff;
             border-radius: 30px;
         }
-        .toggle-button{
+        .toggle-button {
             padding: 10px 25px;
             cursor: pointer;
             background: transparent;
@@ -36,7 +40,7 @@
             outline: none;
             position: relative;
         }
-        #btn{
+        #btn {
             top: 0;
             left: 0;
             position: absolute;
@@ -45,15 +49,14 @@
             background: linear-gradient(to top,#4800ff,#0026ff);
             border-radius: 30px;
             transition: 0.5s;
-
         }
-        .input-group{
+        .input-group {
             top: 180px;
             position: absolute;
             width: 280px;
             transition: .5s;
         }
-        .input-field{
+        .input-field {
             width: 100%;
             padding: 10px 0;
             margin: 5px 0;
@@ -63,9 +66,11 @@
             border-bottom: 0;
             border-bottom: 1px solid #0026ff;
             outline: none;
+            color: white;
+            text-decoration-color: white;
             background: transparent;
         }
-        .submit-btn{
+        .submit-btn {
             width: 85%;
             padding: 10px 25px;
             cursor: pointer;
@@ -76,19 +81,17 @@
             outline: none;
             border-radius: 30px;
         }
-        .chech-box{
-           margin: 30px 10px 30px 0;     
+        .chech-box {
+            margin: 30px 10px 30px 0;
         }
-        
-        span{
+        span {
             color: white;
             font-size: 12px;
             bottom: 68px;
             position: absolute;
             font-style: normal;
-         
         }
-        #login{
+        #login {
             left: 50px;
         }
         #Register {
@@ -107,34 +110,61 @@
             <form id="login" class="input-group">
                 <input type="text" class="input-field" placeholder="User Id" required />
                 <input type="text" class="input-field" placeholder="Enter password" required />
-                <input type="checkbox" class="chech-box"/><span>Remember Password</span>                
-                <button type="submit" class="submit-btn">Log in</button>
+                <input type="checkbox" class="chech-box"/><span>Remember Password</span>                               
+                <button type="submit" class="submit-btn" onclick="Window.location='Curd.html'"> Log in</button>
             </form>
             <form id="Register" class="input-group">
-                <input type="text" class="input-field" placeholder="User Name" required />
-                <input type="email" class="input-field" placeholder="Email id" required />
-                <input type="text" class="input-field" placeholder="Enter Password" required />
-                <input type="text" class="input-field" placeholder="Comform Password" required />
+                <input type="text" class="input-field" id="FirstName" placeholder="User Name" required />
+                <input type="email" class="input-field" id="LastName" placeholder="Email id" required />
+                <input type="text" class="input-field"  id="password" placeholder="Enter Password" required />
+                <input type="text" class="input-field" id="Comformpass" placeholder="Comform Password" required />
                 <input type="checkbox" class="chech-box"/>
                 <span>Agree to the terms & condition</span>
-                <button type="submit" class="submit-btn"> Register</button>
+                <button type="submit" class="submit-btn"onclik="register()"> Register</button>
             </form>
         </div>
     </div>
     <script>
         var x = document.getElementById("login");
         var y = document.getElementById("Register");
+        
         var z = document.getElementById("btn");
         function Register() {
             x.style.left = "-400px";
             y.style.left = "50px";
             z.style.left = "100px";
-        }
+            }
         function login() {
             x.style.left = "50px";
             y.style.left = "450px";
             z.style.left = "0";
-        }
+        } 
+    </script>
+    <script>
+        //var employee = document.getElementById("register");
+        function register() {
+            $(document).ready(function () {  
+    var employee = {};  
+    //employee.Name   = $('username').val();  
+    //employee.Email  = $('Emailid').val();  
+    //employee.Password  = $('password').val();  
+    //employee.ConformPassword = $('Comformpass').val();  
+
+                employee.name = document.getElementById("FirstName");
+  
+    $.ajax({  
+        url: '/api/Employee/Add',  
+        method: 'post',  
+        data:   '{emp: ' + JSON.stringify(employee) + '}',  
+        contentType: "application/json; charset=utf-8",  
+        dataType: "json",  
+        success: function () {   
+            console.log(data);  
+        },  
+        error: function (err) {  
+            console.log(err);  
+        }  
+    });  
     </script>
 </body>
 </html>
