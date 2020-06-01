@@ -32,7 +32,7 @@ namespace GreetingApp
             services.AddTransient<IGreetingRepository, GreetingRepository>();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "GreetingAdd", Version = "v1" });            
+                c.SwaggerDoc("v1", new Info { Title = "GreetingApp", Version = "v1" });            
             });
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
