@@ -1,46 +1,121 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>
-        Html CRUD operation
-    </title>
+    <meta charset="ISO-8859-1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <title>Insert title here</title>
 </head>
 <body>
-    <table>
-        <tr>
-            <td>
-                <form>
-                    <div>
-                        <label>Full Name</label>
-                        <input type="text" name="fullName" />
-                    </div>
-                    <div>
-                        <label>Last Name</label>
-                        <input type="text" name="lastName" />
-                    </div>
-                    <div>
-                        <label>EmailId</label>
-                        <input type="text" name="emailId" />
-                    </div>
-                    <div>
-                        <label>Password</label>
-                        <input type="text" name="password" />
-                    </div>
-                    <div>
-                        <label>MobileNumber</label>
-                        <input type="text" name="mobileNumber" />
-                    </div>
-                    <div>
-                        <label>Salary</label>
-                        <input type="text" name="salary" />
-                    </div>
-                    <div>
-                        <input type="button" value="submit" />
-                    </div>
-                </form>
-            </td>
-        </tr>
-    </table>
+    <h1>Add New Employee</h1>
+    <form action="SaveServlet" method="post">
+        <table>
+            <tr><td>First Name:</td><td><input type="text" id="FirstName" placeholder="first Name" required /></td></tr>
+            <tr><td>Last Name</td><td><input type="text" id="LastName" placeholder="last name" required /></td></tr>
+            <tr><td>Email ID:</td><td><input type="email" id="Email" placeholder="Email id" required /></td></tr>
+            <tr><td>Mobile Number:</td><td><input type="email" id="Password" placeholder="Enter Password" required /></td></tr>
+            <tr><td>Password:</td><td><input type="password" id="Salary" placeholder="Enter Salary" required /></td></tr>
+            <tr><td>Salary:</td><td><input type="text" id="MobileNumber" placeholder="Mobile Number" required /></td></tr>
+            <tr><td colspan="2"><input type="submit" value="Save Employee" id="crud" /></td></tr>
+        </table>
+        <br />
+    </form>
+    <h1>Display the Table</h1>
+    <div>
+        <table id="Display">
+            <thead>
+                <tr>
+                    <th>Employee Id</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Email Id</th>
+                    <th>password</th>
+                    <th>Mobile NO</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <h1>Delete Employee</h1>
+    <form id="delete">
+        <div>
+            <label>Employee Id:</label>
+            <input type="text" id="del" />
+            <button type="submit" id="deletes"> Delete Employee</button>
+        </div>
+    </form>
+    <h1>Edit Employee</h1>
+    <form id="update">
+        <div>
+            <label>Employee Id:</label>
+            <input type="text" id="edit" />
+            <button type="submit" id="Edit">Edit Employee</button>
+        </div>
+    </form>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#crud").click(function () {
+                event.preventDefault();
+                var data = {
+                    firstName: document.getElementById("FirstName").value,
+                    lastName: document.getElementById("LastName").value,
+                    emailId: document.getElementById("Email").value,
+                    password: document.getElementById("Password").value,
+                    salary: document.getElementById("Salary").value,
+                    mobileNumber: document.getElementById("MobileNumber").value
+                }
+                console.log("form data", data);
+                var form = JSON.stringify(data);
+                console.log("json data", form);
+                $.ajax({
+                    url: "/api/Employee/AddEmployee",
+                    type: "POST",
+                    data: form,
+                    contentType: " application / json; charset = utf - 8",
+                    success: function () {
+                        alert("Data Added");
+                    }
+                });
+            });
+        });
+
+        $('#deletes').click(function () {
+            //function deletes(){
+            var EmployeeId = $('#del').val();
+            alert(EmployeeId);
+            $.ajax({
+                type: "DELETE",
+                url: "/api/Employee/" + EmployeeId,
+                dataType: "json",
+                contentType: " application / json; charset = utf - 8",
+                success: function () {
+                    alert("DELETED", +EmployeeId, "ROW");
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "/api/Employee/",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8 ",
+                method: 'post',
+                success: function (data) {
+                    var employeeDisplay = $('#Display tbody');
+                    employeeDisplay.empty();
+                    $(data).each(function (index, emp) {
+                        employeeDisplay.append(' <tr><td> ' + emp.employeeId + ' </td><td> ' + emp.firstName + ' </td><td> ' + emp.lastName + ' </td><td> ' + emp.emailId +
+                            ' </td><td> ' + emp.password + ' </td><td> ' + emp.mobileNumber + ' </td><td> ' + emp.salary);
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
