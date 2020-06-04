@@ -47,7 +47,7 @@ namespace GreetingAppRepositoriesLayer.Migrations
 
                     b.HasKey("EmployeeId");
 
-                    b.ToTable("Employee");
+                    b.ToTable("Employees");
                 });
 #pragma warning restore 612, 618
         }
