@@ -4,17 +4,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GreetingAppManagerLayer.Manager
+namespace GreetingAppManagerLayer
 {
     public interface IGreetingManager
     {
         IEnumerable<GreetingModel> GetAllGreetingModels();
         GreetingModel GetGreetingModel(int EmployeeId);
-        Task<int> Add(GreetingModel employee);
-        void Update(GreetingModel employeeChanges);
-        GreetingModel Delete(int Employee);
-        bool Login(string username, string password);
-        void save();
-       
+        Task<int> AddEmployee(GreetingModel employee);
+        Task<int> UpdateEmployee(GreetingModel employeeChanges);
+        GreetingModel DeleteEmployee(int Employee);
+        void saveEmployee();
     }
 }
