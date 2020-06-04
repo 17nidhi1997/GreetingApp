@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using GreetingAppCommannLayer;
-using GreetingAppManagerLayer.Manager;
-using GreetingAppManagerLayer.ManagerImplemantion;
-using GreetingAppRepositoriesLayer;
-using Microsoft.AspNetCore.Http;
+using GreetingAppManagerLayer;
+using GreetingAppRepositoriesLayer.Context;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -16,69 +13,53 @@ namespace GreetingApp.Controlleres
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-        private readonly IGreetingManager _greetingManager;
-        public EmployeeController(GreetingManager greetingmanager)
+        private readonly IGreetingManager _Manager;
+        
+        public EmployeeController(IGreetingManager manager)
         {
-            _greetingManager = greetingmanager;
+            _Manager = manager;
         }
-        [Route("Add")]
+        [Route("AddEmployee")]
         [HttpPost]
-        public async Task<IActionResult> AddEmployee(GreetingModel employee)
+        public async Task<IActionResult> AddEmployee(GreetingModel employee) 
         {
-            var result = await this._greetingManager.Add(employee);
-            if(result==1)
-            {
-                return this.Ok(employee);
-            }
-            else
-            {
-                Log.Error("This is bad nw");
-                return this.BadRequest();
-            }            
-        }
-      
+               var result = await this._Manager.AddEmployee(employee);
+               if(result==1)
+               {
+                   return this.Ok(employee);
+               }
+               else
+               {
+                   Log.Error("This is bad network");
+                   return this.BadRequest();
+               }        
+        }  
+        
         [HttpGet]
         public IEnumerable<GreetingModel> GetAllGreetingModels()
         {
             Log.Information("list is added");
-            return this._greetingManager.GetAllGreetingModels();
-        }
-        
-        [Route("{id}")]
+            return this._Manager.GetAllGreetingModels();
+        }     
+        [Route("EmployeeId")]
         [HttpGet]
         public GreetingModel GetGreetingModel(int EmployeeId)
         {
             Log.Information("Employee details ");
-            return this._greetingManager.GetGreetingModel(EmployeeId);
-        }
-        
+            return this._Manager.GetGreetingModel(EmployeeId);
+        }     
         [Route("Update")]
-        [HttpGet]
+        [HttpPut]
         public void UpdateEmployee(GreetingModel employeeChanges)
         {
-            this._greetingManager.Update(employeeChanges);
+            this._Manager.UpdateEmployee(employeeChanges);
         }
-
-        [Route("{id}")]
-        [HttpPost]
-        public GreetingModel DeleteEmployee(int id)
+        [HttpDelete]
+        [Route("{EmployeeId}")]
+        public GreetingModel DeleteEmployee(int EmployeeId)
         {
             Log.Information("employee with id was deleted");
-            return this._greetingManager.Delete(id);
+            return this._Manager.DeleteEmployee(EmployeeId);
         }
-
-        [Route("Login")]
-        [HttpPost]
-        public IActionResult Login(GreetingModel model)
-        {
-            var result = _greetingManager.Login(model.EmailId, model.Password);
-            if (result == true)
-            {
-                return this.Ok(model.EmailId);
-            }
-            else
-                return this.BadRequest();
-        }
-
     }
 }
