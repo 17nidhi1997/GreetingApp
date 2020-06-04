@@ -11,7 +11,6 @@ namespace GreetingAppRepositoriesLayer.Context
         public RepoDbContext(DbContextOptions<RepoDbContext> options) : base(options)
         {
         }
-        public DbSet<GreetingModel> Employees { get; set; }
-        
+        public DbSet<GreetingModel> Employees { get; set; }        
     }
 }
