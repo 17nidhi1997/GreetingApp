@@ -12,6 +12,8 @@ using GreetingAppRepositoriesLayer.Context;
 using Microsoft.AspNetCore.Mvc;
 using GreetingAppRepositoriesLayer;
 using Swashbuckle.AspNetCore.Swagger;
+using GreetingAppManagerLayer;
+using GreetingAppManagerLayer.ManagerImplemantation;
 
 namespace GreetingApp
 {
@@ -30,6 +32,7 @@ namespace GreetingApp
             options => options.UseSqlServer(_config.GetConnectionString("EmployeeDBConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<IGreetingRepository, GreetingRepository>();
+            services.AddTransient<IGreetingManager, GreetingManager>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "GreetingApp", Version = "v1" });            
@@ -55,10 +58,6 @@ namespace GreetingApp
             app.UseMvc();
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            app.Run(async (context) =>
-            {
-               await context.Response.WriteAsync("hello world");           
-            });
         }
     }
 }
